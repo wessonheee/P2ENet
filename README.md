@@ -2,14 +2,13 @@
 
 [![PyTorch](https://img.shields.io/badge/PyTorch-1.11%2B%20%7C%202.x-EE4C2C.svg?style=flat&logo=pytorch)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Paper](https://img.shields.io/badge/Paper-PAA%20Submission-blue.svg)](https://link.springer.com/journal/10044)
 [![Parameters](https://img.shields.io/badge/Params-0.71M-green.svg)]()
 [![FLOPs](https://img.shields.io/badge/GFLOPs-8.9-blueviolet.svg)]()
 [![Throughput](https://img.shields.io/badge/Throughput-142%20FPS%20(T4)-brightgreen.svg)]()
 
 > **Official PyTorch Implementation** of the paper:  
 > **"P2E-Net: Perception-Preserving Decoupled Enhancement for Real-Time Nighttime Object Detection"**  
-> *Submitted to Pattern Analysis and Applications (PAA, Springer Nature).*
+
 
 ---
 
@@ -26,10 +25,6 @@ Low-Light Sensor Degradation
 **P2E-Net** resolves this fundamental gradient conflict through an **Orthogonal Quad-Domain Synergistic Framework**, functioning as an ultra-lightweight ($0.71\,\text{M}$ parameters, $8.9\,\text{GFLOPs}$), decoupled enhancement front-end that simultaneously guarantees high visual fidelity ($24.76\,\text{dB}$ PSNR on LOL-v1) and elevates downstream detector accuracy ($56.67\%$ mAP@0.5, $70.25\%$ Precision on ExDark) **without retraining downstream detectors**.
 
 ---
-
-## 🏗️ System Architecture
-
-![P2E-Net Architecture](assets/Figure2_Architecture.png)
 
 ### Key Technical Contributions:
 1. **Mathematical Multi-Objective Gradient Conflict Formulation:** Proves why standard joint optimization $\langle \nabla \mathcal{L}_{\text{vis}}, \nabla \mathcal{L}_{\text{task}} \rangle < 0$ causes destructive parameter updates in sensor-degraded regions.
@@ -49,13 +44,13 @@ Low-Light Sensor Degradation
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | RetinexNet | BMVC 2018 | 16.77 | 0.5590 | 0.84 | 587.5 | 35.2 | 28.4 |
 | KinD | ACM MM 2019 | 20.87 | 0.8030 | 8.02 | 54.6 | 24.3 | 41.2 |
-| Zero-DCE | CVPR 2020 | 14.86 | 0.5620 | **0.08** | **5.2** | **2.5** | **400.0** |
+| Zero-DCE | CVPR 2020 | 14.86 | 0.5620 | 0.08 | 5.2 | 2.5 | 400.0 |
 | EnlightenGAN | IEEE TIP 2021 | 17.48 | 0.6580 | 8.64 | 43.1 | 12.8 | 78.1 |
 | URetinex-Net | CVPR 2022 | 21.33 | 0.8350 | 0.35 | 31.8 | 15.6 | 64.1 |
 | Restormer | CVPR 2022 | 22.56 | 0.8210 | 26.10 | 141.0 | 48.0 | 20.8 |
-| Retinexformer | ICCV 2023 | 25.10 | **0.8450** | 1.61 | 15.4 | 16.2 | 61.7 |
+| Retinexformer | ICCV 2023 | 25.10 | 0.8450 | 1.61 | 15.4 | 16.2 | 61.7 |
 | BREAD | IJCV 2023 | 23.45 | 0.8120 | 1.85 | 22.4 | 18.5 | 54.1 |
-| CIDNet | CVPR 2024 | **25.64** | 0.8390 | 2.45 | 24.8 | 19.5 | 51.3 |
+| CIDNet | CVPR 2024 | 25.64 | 0.8390 | 2.45 | 24.8 | 19.5 | 51.3 |
 | **P2E-Net (Ours)** | **PAA Draft** | **24.76** | **0.7885** | **0.71** | **8.9** | **7.0** | **142.9** |
 
 *Note: Latency benchmarks executed on a single NVIDIA Tesla T4 GPU (70W TDP) at $640 \times 640$ resolution.*
@@ -168,67 +163,4 @@ python eval_detection.py \
 
 ---
 
-## 📦 Pretrained Checkpoints
 
-All official pretrained weights are available in [`checkpoints/`](checkpoints/):
-
-| Checkpoint | Target / Task | Key Metric | Size |
-|:---|:---|:---:|:---:|
-| `p2enet_sota_best.pth` | LOL-v1 Visual Enhancement | 24.76 dB PSNR / 0.7885 SSIM | ~2.8 MB |
-| `p2enet_exdark_adapted.pth` | ExDark Nighttime Detection | 56.67% mAP@0.5 (YOLOv8s) | ~2.8 MB |
-
----
-
-## 📂 Repository Structure
-
-```
-P2E-Net/
-├── assets/
-│   └── Figure2_Architecture.png    # Comprehensive architecture diagram
-├── checkpoints/
-│   ├── p2enet_sota_best.pth        # LOL-v1 trained weights (24.76 dB PSNR)
-│   ├── p2enet_exdark_adapted.pth   # ExDark adapted weights (56.67% mAP50)
-│   └── README.md                   # Checkpoint specifications
-├── data/
-│   ├── dataset.py                  # PyTorch dataset loaders (LOL & ExDark)
-│   ├── __init__.py
-│   └── samples/                    # Sample low-light benchmark images
-│       ├── exdark_sample_motorcycle.jpg
-│       └── exdark_sample_street.jpg
-├── losses/
-│   ├── losses.py                   # L_hp, L_pv, L_adapt, and compound loss
-│   └── __init__.py
-├── models/
-│   ├── p2enet.py                   # P2ENet, GatedBlock, BSVM, GatedFusion
-│   └── __init__.py
-├── results/                        # Generated output images
-├── train.py                        # Multi-stage training script
-├── inference.py                    # Single image & batch inference script
-├── benchmark.py                    # Complexity & FPS benchmark script
-├── eval_detection.py               # Downstream YOLOv8s evaluation script
-├── requirements.txt                # Python package dependencies
-├── LICENSE                         # MIT License
-└── README.md                       # Master Documentation
-```
-
----
-
-## 📜 Citation
-
-If you find this repository, code, or our paper helpful for your research, please cite our work:
-
-```bibtex
-@article{p2enet2026,
-  title     = {P2E-Net: Perception-Preserving Decoupled Enhancement for Real-Time Nighttime Object Detection},
-  author    = {Author Names},
-  journal   = {Pattern Analysis and Applications},
-  year      = {2026},
-  publisher = {Springer Nature},
-  note      = {Under Review}
-}
-```
-
----
-
-## 📄 License
-This project is released under the [MIT License](LICENSE).
