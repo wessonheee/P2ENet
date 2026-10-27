@@ -5,11 +5,6 @@
 [![Parameters](https://img.shields.io/badge/Params-0.71M-green.svg)]()
 [![FLOPs](https://img.shields.io/badge/GFLOPs-8.9-blueviolet.svg)]()
 [![Throughput](https://img.shields.io/badge/Throughput-142%20FPS%20-brightgreen.svg)]()
-
-> **Official PyTorch Implementation** of the paper:  
-> **"P2E-Net: Perception-Preserving Decoupled Enhancement for Real-Time Nighttime Object Detection"**  
-
-
 ---
 
 ## 📌 Abstract & Motivation
