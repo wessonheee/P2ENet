@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Parameters](https://img.shields.io/badge/Params-0.71M-green.svg)]()
 [![FLOPs](https://img.shields.io/badge/GFLOPs-8.9-blueviolet.svg)]()
-[![Throughput](https://img.shields.io/badge/Throughput-142%20FPS%20(T4)-brightgreen.svg)]()
+[![Throughput](https://img.shields.io/badge/Throughput-142%20FPS%20-brightgreen.svg)]()
 
 > **Official PyTorch Implementation** of the paper:  
 > **"P2E-Net: Perception-Preserving Decoupled Enhancement for Real-Time Nighttime Object Detection"**  
